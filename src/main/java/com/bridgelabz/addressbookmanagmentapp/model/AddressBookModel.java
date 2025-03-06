@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "contacts")
+@Table(name = "address")
 public class AddressBookModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

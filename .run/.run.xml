@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" type="Application" factoryName="Application">
+    <envs>
+      <env name="username" value="root" />
+      <env name="password" value="ayushi" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.bridgelabz.addressbookmanagmentapp.AddressBookManagmentAppApplication" />
+    <module name="AddressBookManagmentApp" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
