@@ -1,4 +1,4 @@
-package com.bridgelabz.addressbookmanagmentapp.Exception;
+package com.bridgelabz.addressbookmanagmentapp.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

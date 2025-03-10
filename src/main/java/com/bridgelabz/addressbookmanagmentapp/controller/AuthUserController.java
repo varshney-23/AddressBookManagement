@@ -1,8 +1,6 @@
 package com.bridgelabz.addressbookmanagmentapp.controller;
 
-import com.bridgelabz.addressbookmanagmentapp.DTO.AuthUserDTO;
-import com.bridgelabz.addressbookmanagmentapp.DTO.LoginDTO;
-import com.bridgelabz.addressbookmanagmentapp.Exception.ResponseDTO;
+import com.bridgelabz.addressbookmanagmentapp.DTO.*;
 import com.bridgelabz.addressbookmanagmentapp.model.AuthUser;
 import com.bridgelabz.addressbookmanagmentapp.service.AuthenticationService;
 import jakarta.validation.Valid;
@@ -29,4 +27,22 @@ public class AuthUserController {
         ResponseDTO responseUserDTO=new ResponseDTO("Login successfully!!",result);
         return  new ResponseEntity<>(responseUserDTO, HttpStatus.OK);
     }
+
+    @PutMapping("/forgotPassword/{email}")
+    public ResponseEntity<ResponseDTO> forgotPassword(@PathVariable String email,
+                                                      @Valid @RequestBody ForgetPasswordDTO forgotPasswordDTO) {
+        String responseMessage = authenticationService.forgotPassword(email, forgotPasswordDTO.getPassword());
+        ResponseDTO responseDTO = new ResponseDTO(responseMessage, null);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/resetPassword/{email}")
+    public ResponseEntity<ResponseDTO> resetPassword(@PathVariable String email,
+                                                     @Valid @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        String responseMessage = authenticationService.resetPassword(email,
+                resetPasswordDTO.getCurrentPassword(),
+                resetPasswordDTO.getNewPassword());
+        return new ResponseEntity<>(new ResponseDTO(responseMessage, null), HttpStatus.OK);
+    }
+
 }
