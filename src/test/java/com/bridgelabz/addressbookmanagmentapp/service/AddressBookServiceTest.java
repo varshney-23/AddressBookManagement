@@ -1,11 +1,12 @@
 package com.bridgelabz.addressbookmanagmentapp.service;
 
 
-import static org.junit.jupiter.api.Assertions.*;
 import com.bridgelabz.addressbookmanagmentapp.DTO.AddressBookDTO;
 import com.bridgelabz.addressbookmanagmentapp.Exception.UserException;
 import com.bridgelabz.addressbookmanagmentapp.Repository.AddressRepository;
 import com.bridgelabz.addressbookmanagmentapp.model.AddressBookModel;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -149,6 +150,7 @@ class AddressBookServiceTest {
 
         assertTrue(service.deleteContact(1L));
     }
+
     @Test
     void deleteContact_ShouldThrowExceptionWhenNotFound() {
         when(repository.existsById(1L)).thenReturn(false);
@@ -156,6 +158,7 @@ class AddressBookServiceTest {
         UserException exception = assertThrows(UserException.class, () -> service.deleteContact(1L));
         assertEquals("Contact not found with ID: 1", exception.getMessage());
     }
+
     @Test
     void deleteContact_ShouldThrowExceptionOnFailure() {
         when(repository.existsById(1L)).thenReturn(true);

@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressBookDTO {
-
+public class AddressBookDTO implements Serializable {  // <-- Implement Serializable
+    private static final long serialVersionUID = 1L;
     private Long id;
 
     @NotBlank(message = "Name is required")
