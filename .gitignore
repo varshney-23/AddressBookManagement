@@ -1,4 +1,21 @@
 HELP.md
+
+# Logs
+*.log
+logs/
+logs/*.log
+*.log.*
+*.out
+*.err
+*.bak
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+/node_modules/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
