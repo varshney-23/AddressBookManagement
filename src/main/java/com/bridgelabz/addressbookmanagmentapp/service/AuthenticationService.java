@@ -1,6 +1,5 @@
 package com.bridgelabz.addressbookmanagmentapp.service;
 
-
 import com.bridgelabz.addressbookmanagmentapp.DTO.AuthUserDTO;
 import com.bridgelabz.addressbookmanagmentapp.DTO.LoginDTO;
 import com.bridgelabz.addressbookmanagmentapp.Exception.UserException;
@@ -9,7 +8,7 @@ import com.bridgelabz.addressbookmanagmentapp.Repository.AuthenticationRepositor
 import com.bridgelabz.addressbookmanagmentapp.Util.EmailSenderService;
 import com.bridgelabz.addressbookmanagmentapp.Util.jwttoken;
 import com.bridgelabz.addressbookmanagmentapp.model.AuthUser;
-
+import com.bridgelabz.addressbookmanagmentapp.publisher.RabbitMQPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,80 +29,61 @@ public class AuthenticationService implements IAuthenticationService {
     @Autowired
     EmailSenderService emailSenderService;
 
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private RabbitMQPublisher rabbitMQPublisher;
 
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public AuthUser register(AuthUserDTO userDTO) throws Exception {
-        try {
-            log.info("Registering new user: {}", userDTO.getEmail());
+        log.info("Registering new user: {}", userDTO.getEmail());
 
-            Optional<AuthUser> existingUser = Optional.ofNullable(authUserRepository.findByEmail(userDTO.getEmail()));
-            if (existingUser.isPresent()) {
-                log.error("User already exists: {}", existingUser.get().getEmail());
-                throw new UserException("User with this email already exists.");
-            }
-
-            AuthUser user = new AuthUser(userDTO);
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
-            authUserRepository.save(user);
-
-            String token = tokenUtil.createToken(user.getUserId());
-
-            emailSenderService.sendEmail(
-                    user.getEmail(),
-                    "Registered Successfully!",
-                    "Hi " + user.getFirstName() + ",\nYou have been successfully registered!\n\n"
-                            + "Your token: " + token);
-
-            log.info("User {} registered successfully.", user.getEmail());
-
-            return user;
-
-        } catch (Exception e) {
-            log.error("Error occurred while registering user: {}", e.getMessage());
-            throw new UserException("Registration failed due to an internal error. Please try again.");
+        Optional<AuthUser> existingUser = Optional.ofNullable(authUserRepository.findByEmail(userDTO.getEmail()));
+        if (existingUser.isPresent()) {
+            log.error("User already exists: {}", existingUser.get().getEmail());
+            throw new UserException("User with this email already exists.");
         }
-    }
 
+        AuthUser user = new AuthUser(userDTO);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        authUserRepository.save(user);
+        String token = tokenUtil.createToken(user.getUserId());
+
+        emailSenderService.sendEmail(user.getEmail(), "Registered Successfully!",
+                "Hi " + user.getFirstName() + ",\nYou have been successfully registered!\nYour token: " + token);
+
+        rabbitMQPublisher.sendMessage("userQueue", "User Registered: " + user.getEmail());
+
+        log.info("User {} registered successfully.", user.getEmail());
+        return user;
+    }
 
     @Override
     public String login(LoginDTO loginDTO) {
-        try {
-            log.info("Login attempt for email: {}", loginDTO.getEmail());
-            Optional<AuthUser> user = Optional.ofNullable(authUserRepository.findByEmail(loginDTO.getEmail()));
+        log.info("Login attempt for email: {}", loginDTO.getEmail());
+        Optional<AuthUser> user = Optional.ofNullable(authUserRepository.findByEmail(loginDTO.getEmail()));
 
-            if (user.isPresent()) {
-                if (passwordEncoder.matches(loginDTO.getPassword(), user.get().getPassword())) {
-                    log.info("Login successful for user: {}", user.get().getEmail());
+        if (user.isPresent()) {
+            if (passwordEncoder.matches(loginDTO.getPassword(), user.get().getPassword())) {
+                log.info("Login successful for user: {}", user.get().getEmail());
 
-                    // Token generate and send on login
-                    String token = tokenUtil.createToken(user.get().getUserId());
+                String token = tokenUtil.createToken(user.get().getUserId());
+                emailSenderService.sendEmail(user.get().getEmail(), "Logged in Successfully!",
+                        "Hi " + user.get().getFirstName() + ",\nYou have successfully logged in!\nYour token: " + token);
 
-                    emailSenderService.sendEmail(
-                            user.get().getEmail(),
-                            "Logged in Successfully!",
-                            "Hi " + user.get().getFirstName() + ",\n\n"
-                                    + "You have successfully logged into Greeting App!\n"
-                                    + "Your token: " + token);
+                rabbitMQPublisher.sendMessage("userQueue", "User Logged In: " + user.get().getEmail());
 
-                    return "Congratulations!! You have logged in successfully! Token: " + token;
-                } else {
-                    log.warn("Login failed: Incorrect password for email: {}", loginDTO.getEmail());
-                    throw new UserException("Sorry! Email or Password is incorrect!");
-                }
+                return "Congratulations!! You have logged in successfully! Token: " + token;
             } else {
-                log.warn("Login failed: No user found for email: {}", loginDTO.getEmail());
+                log.warn("Login failed: Incorrect password for email: {}", loginDTO.getEmail());
                 throw new UserException("Sorry! Email or Password is incorrect!");
             }
-
-        } catch (Exception e) {
-            log.error("Error during login process: {}", e.getMessage());
-            throw new UserException("Login failed due to an internal error. Please try again.");
+        } else {
+            log.warn("Login failed: No user found for email: {}", loginDTO.getEmail());
+            throw new UserException("Sorry! Email or Password is incorrect!");
         }
     }
-
 
     @Override
     public String forgotPassword(String email, String newPassword) {
@@ -126,6 +106,8 @@ public class AuthenticationService implements IAuthenticationService {
                     "Hi " + user.getFirstName() + ",\n\nYour password has been successfully changed!");
 
             log.info("Password updated successfully for email: {}", email);
+
+            rabbitMQPublisher.sendMessage("userQueue", "Password reset requested: " + email);
 
             return "Password has been changed successfully!";
         } catch (Exception e) {
@@ -160,6 +142,8 @@ public class AuthenticationService implements IAuthenticationService {
                     "Hi " + user.getFirstName() + ",\n\nYour password has been successfully updated!");
 
             log.info("Password reset successful for email: {}", email);
+
+            rabbitMQPublisher.sendMessage("userQueue", "Password changed: " + email);
 
             return "Password reset successfully!";
         } catch (Exception e) {
