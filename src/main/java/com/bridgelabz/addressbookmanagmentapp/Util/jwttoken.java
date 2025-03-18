@@ -7,31 +7,37 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class jwttoken{
 
-    private static final String TOKEN_SECRET = "6F9t$D@&kV%8eXzB#R!qP3WmYs*TgJ+CnL^o5h2M4aK";
+    @Autowired
+    static String TOKEN_SECRET = "Lock";
+    @Autowired
+    static Map<Long, String> activeTokens = new HashMap<>();
 
-    public String createToken(Long id) {
+    public String createToken(Long id)   {
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
+
             String token = JWT.create()
                     .withClaim("user_id", id)
-                    .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.DAYS))) // 1-day expiry
                     .sign(algorithm);
+            activeTokens.put(id, token);
             return token;
+
         } catch (JWTCreationException exception) {
             exception.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
         return null;
     }
-
     public Long decodeToken(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).build();
@@ -41,5 +47,23 @@ public class jwttoken{
             throw new RuntimeException("Invalid or expired token.");
         }
     }
+
+    public boolean isUserLoggedIn(Long userId, String token) {
+        return activeTokens.containsKey(userId) && activeTokens.get(userId).equals(token);
+    }
+
+    public void logoutUser(Long userId) {
+        activeTokens.remove(userId);
+    }
+
+
+    public Long getCurrentUserId(String token) {
+        return decodeToken(token); // Extracts the user ID from the token
+    }
+
+    public String getCurrentToken(Long userId) {
+        return activeTokens.get(userId);
+    }
+
 
 }
