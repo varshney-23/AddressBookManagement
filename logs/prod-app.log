@@ -64,3 +64,279 @@ This generated password is for development use only. Your security configuration
 2025-03-18T07:19:51.972+05:30  INFO 34404 --- [AddressBookManagmentApp] [http-nio-8080-exec-1] c.b.a.service.AddressBookService         : Fetching all contacts from the database.
 2025-03-18T07:19:52.137+05:30 DEBUG 34404 --- [AddressBookManagmentApp] [http-nio-8080-exec-1] org.hibernate.SQL                        : select abm1_0.id,abm1_0.name,abm1_0.phone from address abm1_0
 2025-03-18T07:19:52.193+05:30  INFO 34404 --- [AddressBookManagmentApp] [http-nio-8080-exec-1] c.b.a.service.AddressBookService         : DB Query Time: 221ms
+2025-03-18T09:15:40.945+05:30  INFO 12616 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Starting AddressBookManagmentAppApplication using Java 22.0.1 with PID 12616 (C:\Users\HP\IdeaProjects\AddressBookManagmentApp\target\classes started by ayushi.varshney_cs21@gla.ac.in in C:\Users\HP\IdeaProjects\AddressBookManagmentApp)
+2025-03-18T09:15:40.949+05:30  INFO 12616 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : The following 1 profile is active: "prod"
+2025-03-18T09:15:48.032+05:30  WARN 12616 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-18T09:15:48.038+05:30  WARN 12616 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-18T09:15:54.706+05:30  WARN 12616 --- [AddressBookManagmentApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-18T09:16:38.935+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:632) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2262) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2235) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2215) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1972) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1936) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1483) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1324) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+Caused by: java.net.ConnectException: Connection timed out: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:549) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:752) ~[na:na]
+	at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:304) ~[na:na]
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198) ~[amqp-client-5.22.0.jar:5.22.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:678) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:647) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:593) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	... 12 common frames omitted
+
+2025-03-18T09:17:05.178+05:30  WARN 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+2025-03-18T09:17:21.059+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:21.060+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-1] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+
+org.springframework.amqp.AmqpIOException: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:70) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:632) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2262) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2235) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2215) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1972) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1936) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1483) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1324) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+Caused by: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at java.base/java.net.InetAddress$CachedLookup.get(InetAddress.java:998) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1806) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1676) ~[na:na]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.resolveIpAddresses(DnsRecordIpAddressResolver.java:83) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.getAddresses(DnsRecordIpAddressResolver.java:73) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1245) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198) ~[amqp-client-5.22.0.jar:5.22.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:678) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:647) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:593) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	... 12 common frames omitted
+
+2025-03-18T09:17:21.070+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-1] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+
+org.springframework.amqp.AmqpIOException: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:70) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:632) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2262) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2235) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2215) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1972) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1936) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1483) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1324) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+Caused by: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at java.base/java.net.InetAddress$CachedLookup.get(InetAddress.java:998) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1806) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1676) ~[na:na]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.resolveIpAddresses(DnsRecordIpAddressResolver.java:83) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.getAddresses(DnsRecordIpAddressResolver.java:73) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1245) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198) ~[amqp-client-5.22.0.jar:5.22.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:678) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:647) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:593) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	... 12 common frames omitted
+
+2025-03-18T09:17:21.082+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-1] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+
+org.springframework.amqp.AmqpIOException: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:70) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:632) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2262) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2235) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2215) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1972) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1936) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1483) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1324) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+Caused by: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
+	at java.base/java.net.InetAddress$CachedLookup.get(InetAddress.java:998) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1806) ~[na:na]
+	at java.base/java.net.InetAddress.getAllByName(InetAddress.java:1676) ~[na:na]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.resolveIpAddresses(DnsRecordIpAddressResolver.java:83) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.DnsRecordIpAddressResolver.getAddresses(DnsRecordIpAddressResolver.java:73) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1245) ~[amqp-client-5.22.0.jar:5.22.0]
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198) ~[amqp-client-5.22.0.jar:5.22.0]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:678) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:647) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:593) ~[spring-rabbit-3.2.3.jar:3.2.3]
+	... 12 common frames omitted
+
+2025-03-18T09:17:21.149+05:30  INFO 12616 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Started AddressBookManagmentAppApplication in 101.617 seconds (process running for 102.781)
+2025-03-18T09:17:26.171+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:26.171+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:26.186+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-2] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:26.186+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-2] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:31.263+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-3] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:31.263+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:31.277+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-3] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:31.278+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-3] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:36.405+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-4] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:36.405+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-4] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:36.406+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-4] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:36.407+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:42.111+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:42.874+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-5] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:43.287+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-5] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:43.663+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-5] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:49.631+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:50.532+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-6] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:50.892+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-6] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:51.253+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-6] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:55.545+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:57.157+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-7] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:57.689+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-7] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:17:58.820+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-7] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:01.456+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:03.816+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-8] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:04.773+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-8] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:05.692+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-8] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:07.354+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:09.828+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-9] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:10.938+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-9] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:11.740+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-9] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:13.472+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:15.876+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-10] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:17.134+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-10] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:18.358+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-10] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:19.568+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:21.823+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-11] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:23.258+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-11] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:24.266+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-11] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:25.379+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:27.713+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-12] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:29.204+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-12] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:30.145+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-12] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:31.481+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:33.998+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-13] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:35.280+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-13] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:36.073+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-13] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:18:37.556+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:19:00.944+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-14] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:19:22.045+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-14] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:19:43.075+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-14] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:20:04.136+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:20:30.259+05:30  WARN 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-14] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+2025-03-18T09:20:51.295+05:30  WARN 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-14] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+2025-03-18T09:21:12.360+05:30  WARN 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-14] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+2025-03-18T09:21:33.418+05:30  WARN 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] o.s.a.r.l.SimpleMessageListenerContainer : Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection timed out: getsockopt
+2025-03-18T09:21:49.412+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-15] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:50.049+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-15] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:50.562+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-15] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:51.154+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:57.194+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-16] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:57.633+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-16] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:58.476+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-16] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:21:59.227+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:03.665+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-17] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:04.603+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-17] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:05.388+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-17] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:05.793+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:30.223+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:22:51.304+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:23:12.363+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T09:23:33.403+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T10:41:31.007+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Starting AddressBookManagmentAppApplication using Java 22.0.1 with PID 35680 (C:\Users\HP\IdeaProjects\AddressBookManagmentApp\target\classes started by ayushi.varshney_cs21@gla.ac.in in C:\Users\HP\IdeaProjects\AddressBookManagmentApp)
+2025-03-18T10:41:31.012+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : The following 1 profile is active: "prod"
+2025-03-18T10:41:38.158+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-18T10:41:38.172+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-18T10:41:44.846+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-18T10:41:47.435+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Started AddressBookManagmentAppApplication in 17.791 seconds (process running for 18.93)
+2025-03-18T10:47:51.998+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] c.b.a.service.AuthenticationService      : Registering new user: alex@gmail.com
+2025-03-18T10:47:52.254+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] org.hibernate.SQL                        : SELECT * FROM USER WHERE EMAIL = ?
+2025-03-18T10:47:52.393+05:30 ERROR 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] c.b.a.service.AuthenticationService      : User already exists: alex@gmail.com
+2025-03-18T10:47:52.397+05:30 ERROR 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.bridgelabz.addressbookmanagmentapp.Exception.UserException: User with this email already exists.] with root cause
+
+com.bridgelabz.addressbookmanagmentapp.Exception.UserException: User with this email already exists.
+	at com.bridgelabz.addressbookmanagmentapp.service.AuthenticationService.register(AuthenticationService.java:44) ~[classes/:na]
+	at com.bridgelabz.addressbookmanagmentapp.controller.AuthUserController.register(AuthUserController.java:21) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.36.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.36.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+
+2025-03-18T10:52:23.032+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] c.b.a.service.AuthenticationService      : Registering new user: alexi@gmail.com
+2025-03-18T10:52:23.034+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : SELECT * FROM USER WHERE EMAIL = ?
+2025-03-18T10:52:23.248+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : select next_val as id_val from user_seq for update
+2025-03-18T10:52:23.259+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : update user_seq set next_val= ? where next_val=?
+2025-03-18T10:52:23.367+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : insert into user (email,first_name,last_name,password,reset_token,user_id) values (?,?,?,?,?,?)
+2025-03-18T10:52:28.835+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] c.b.a.service.AuthenticationService      : User alexi@gmail.com registered successfully.
+2025-03-18T10:56:31.504+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] c.b.a.service.AddressBookService         : Saving new contact: com.bridgelabz.addressbookmanagmentapp.DTO.AddressBookDTO@1e99f3f7
+2025-03-18T10:56:31.509+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] org.hibernate.SQL                        : insert into address (name,phone) values (?,?)
+2025-03-18T10:56:31.531+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] c.b.a.service.AddressBookService         : ✅ Contact saved successfully with ID: 6
