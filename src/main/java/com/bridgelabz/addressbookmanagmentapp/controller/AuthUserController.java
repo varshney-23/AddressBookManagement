@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 public class AuthUserController {
+
     @Autowired
     AuthenticationService authenticationService;
+
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@Valid @RequestBody AuthUserDTO userDTO) throws Exception{
         AuthUser user=authenticationService.register(userDTO);
