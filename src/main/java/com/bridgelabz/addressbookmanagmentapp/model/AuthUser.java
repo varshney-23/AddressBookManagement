@@ -2,15 +2,13 @@ package com.bridgelabz.addressbookmanagmentapp.model;
 
 
 import com.bridgelabz.addressbookmanagmentapp.DTO.AuthUserDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "user")
 public class AuthUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +18,7 @@ public class AuthUser {
     private String email;
     private String password;
     private String resetToken;
+
 
     public AuthUser(AuthUserDTO userDTO) {
         this.firstName=userDTO.getFirstName();

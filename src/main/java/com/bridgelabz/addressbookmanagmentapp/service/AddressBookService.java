@@ -31,14 +31,19 @@ public class AddressBookService implements IAddressBookService {
     public List<AddressBookDTO> getAllContacts() {
         try {
             log.info("Fetching all contacts from the database.");
+            long start = System.currentTimeMillis();
 
-            return repository.findAll().stream()
-                    .filter(contact -> contact.getName() != null && contact.getPhone() != null)  // Filter out null entries
-                    .map(contact -> new AddressBookDTO(
-                            contact.getId(),
-                            contact.getName(),
-                            contact.getPhone())
-                    ).collect(Collectors.toList());
+            List<AddressBookDTO> contacts =
+                    repository.findAll()
+                            .stream()
+                            .filter(contact -> contact.getName() != null && contact.getPhone() != null)
+                            .map(contact -> new AddressBookDTO(contact.getId(), contact.getName(), contact.getPhone()))
+                            .collect(Collectors.toList());
+
+            long end = System.currentTimeMillis();
+
+            log.info("DB Query Time: {}ms", (end - start));
+            return contacts;
 
         } catch (Exception e) {
             log.error("Error fetching contacts: {}", e.getMessage());
