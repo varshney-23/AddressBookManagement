@@ -268,3 +268,75 @@ Caused by: java.net.UnknownHostException: fuji.lmq.cloudamqp.com
 2025-03-18T09:22:51.304+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#2-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
 2025-03-18T09:23:12.363+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#3-18] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
 2025-03-18T09:23:33.403+05:30 ERROR 12616 --- [AddressBookManagmentApp] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] o.s.a.r.l.SimpleMessageListenerContainer : Failed to check/redeclare auto-delete queue(s).
+2025-03-18T10:41:31.007+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Starting AddressBookManagmentAppApplication using Java 22.0.1 with PID 35680 (C:\Users\HP\IdeaProjects\AddressBookManagmentApp\target\classes started by ayushi.varshney_cs21@gla.ac.in in C:\Users\HP\IdeaProjects\AddressBookManagmentApp)
+2025-03-18T10:41:31.012+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : The following 1 profile is active: "prod"
+2025-03-18T10:41:38.158+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-03-18T10:41:38.172+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-03-18T10:41:44.846+05:30  WARN 35680 --- [AddressBookManagmentApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-03-18T10:41:47.435+05:30  INFO 35680 --- [AddressBookManagmentApp] [main] c.b.a.AddressBookManagmentAppApplication : Started AddressBookManagmentAppApplication in 17.791 seconds (process running for 18.93)
+2025-03-18T10:47:51.998+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] c.b.a.service.AuthenticationService      : Registering new user: alex@gmail.com
+2025-03-18T10:47:52.254+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] org.hibernate.SQL                        : SELECT * FROM USER WHERE EMAIL = ?
+2025-03-18T10:47:52.393+05:30 ERROR 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] c.b.a.service.AuthenticationService      : User already exists: alex@gmail.com
+2025-03-18T10:47:52.397+05:30 ERROR 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.bridgelabz.addressbookmanagmentapp.Exception.UserException: User with this email already exists.] with root cause
+
+com.bridgelabz.addressbookmanagmentapp.Exception.UserException: User with this email already exists.
+	at com.bridgelabz.addressbookmanagmentapp.service.AuthenticationService.register(AuthenticationService.java:44) ~[classes/:na]
+	at com.bridgelabz.addressbookmanagmentapp.controller.AuthUserController.register(AuthUserController.java:21) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.36.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.3.jar:6.2.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.36.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.3.jar:6.2.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.36.jar:10.1.36]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+
+2025-03-18T10:52:23.032+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] c.b.a.service.AuthenticationService      : Registering new user: alexi@gmail.com
+2025-03-18T10:52:23.034+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : SELECT * FROM USER WHERE EMAIL = ?
+2025-03-18T10:52:23.248+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : select next_val as id_val from user_seq for update
+2025-03-18T10:52:23.259+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : update user_seq set next_val= ? where next_val=?
+2025-03-18T10:52:23.367+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] org.hibernate.SQL                        : insert into user (email,first_name,last_name,password,reset_token,user_id) values (?,?,?,?,?,?)
+2025-03-18T10:52:28.835+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-7] c.b.a.service.AuthenticationService      : User alexi@gmail.com registered successfully.
+2025-03-18T10:56:31.504+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] c.b.a.service.AddressBookService         : Saving new contact: com.bridgelabz.addressbookmanagmentapp.DTO.AddressBookDTO@1e99f3f7
+2025-03-18T10:56:31.509+05:30 DEBUG 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] org.hibernate.SQL                        : insert into address (name,phone) values (?,?)
+2025-03-18T10:56:31.531+05:30  INFO 35680 --- [AddressBookManagmentApp] [http-nio-8080-exec-2] c.b.a.service.AddressBookService         : ✅ Contact saved successfully with ID: 6
