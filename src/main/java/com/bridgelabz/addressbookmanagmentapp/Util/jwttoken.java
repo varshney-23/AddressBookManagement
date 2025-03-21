@@ -1,43 +1,43 @@
 package com.bridgelabz.addressbookmanagmentapp.Util;
 
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class jwttoken{
+public class jwttoken {
 
-    @Autowired
-    static String TOKEN_SECRET = "Lock";
-    @Autowired
-    static Map<Long, String> activeTokens = new HashMap<>();
+    private static final String TOKEN_SECRET = "Lock";
+    private static final Map<Long, String> activeTokens = new HashMap<>();
 
-    public String createToken(Long id)   {
+    public String createToken(Long id) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
 
             String token = JWT.create()
                     .withClaim("user_id", id)
+                    .withExpiresAt(Date.from(Instant.now().plusSeconds(60))) // Token valid for 1 minute
                     .sign(algorithm);
-            activeTokens.put(id, token);
+
+            activeTokens.put(id, token); // Save token
             return token;
 
-        } catch (JWTCreationException exception) {
+        } catch (JWTCreationException | IllegalArgumentException exception) {
             exception.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
         }
         return null;
     }
+
     public Long decodeToken(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).build();
@@ -45,6 +45,16 @@ public class jwttoken{
             return decodedJWT.getClaim("user_id").asLong();
         } catch (JWTVerificationException e) {
             throw new RuntimeException("Invalid or expired token.");
+        }
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).build();
+            DecodedJWT decodedJWT = verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            throw new RuntimeException("Token has expired or is invalid.");
         }
     }
 
@@ -56,14 +66,11 @@ public class jwttoken{
         activeTokens.remove(userId);
     }
 
-
     public Long getCurrentUserId(String token) {
-        return decodeToken(token); // Extracts the user ID from the token
+        return decodeToken(token);
     }
 
     public String getCurrentToken(Long userId) {
         return activeTokens.get(userId);
     }
-
-
 }

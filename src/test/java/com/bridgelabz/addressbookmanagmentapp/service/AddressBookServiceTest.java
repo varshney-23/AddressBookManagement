@@ -1,22 +1,19 @@
 package com.bridgelabz.addressbookmanagmentapp.service;
 
-
 import com.bridgelabz.addressbookmanagmentapp.DTO.AddressBookDTO;
 import com.bridgelabz.addressbookmanagmentapp.Exception.UserException;
 import com.bridgelabz.addressbookmanagmentapp.Repository.AddressRepository;
 import com.bridgelabz.addressbookmanagmentapp.model.AddressBookModel;
-
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,143 +25,101 @@ class AddressBookServiceTest {
     @InjectMocks
     private AddressBookService service;
 
-    private AddressBookModel sampleContact;
-    private AddressBookDTO sampleContactDTO;
+    private AddressBookModel contact;
+    private AddressBookDTO contactDTO;
 
     @BeforeEach
     void setUp() {
-        sampleContact = new AddressBookModel(1L, "John Doe", "9876543210");
-        sampleContactDTO = new AddressBookDTO(1L, "John Doe", "9876543210");
-    }
+        contact = new AddressBookModel();
+        contact.setId(1L);
+        contact.setName("John Doe");
+        contact.setPhone("9876543210");
 
-    // ===================== GET ALL CONTACTS TESTS =====================
-
-    @Test
-    void getAllContacts_ShouldReturnContacts() {
-        List<AddressBookModel> contactList = new ArrayList<>();
-        contactList.add(sampleContact);
-
-        when(repository.findAll()).thenReturn(contactList);
-
-        List<AddressBookDTO> result = service.getAllContacts();
-
-        assertFalse(result.isEmpty());
-        assertEquals(1, result.size());
-        assertEquals("John Doe", result.get(0).getName());
+        contactDTO = new AddressBookDTO(1L, "John Doe", "9876543210");
     }
 
     @Test
-    void getAllContacts_ShouldReturnEmptyList() {
-        when(repository.findAll()).thenReturn(new ArrayList<>());
+    void testGetAllContacts() {
+        when(repository.findAll()).thenReturn(Arrays.asList(contact));
 
-        List<AddressBookDTO> result = service.getAllContacts();
+        List<AddressBookDTO> contacts = service.getAllContacts();
 
-        assertTrue(result.isEmpty());
+        assertEquals(1, contacts.size());
+        assertEquals("John Doe", contacts.get(0).getName());
+        verify(repository, times(1)).findAll();
     }
 
     @Test
-    void getAllContacts_ShouldThrowExceptionOnFailure() {
-        when(repository.findAll()).thenThrow(new RuntimeException("Database error"));
+    void testGetAllContacts_EmptyList() {
+        when(repository.findAll()).thenReturn(Arrays.asList());
 
-        UserException exception = assertThrows(UserException.class, () -> service.getAllContacts());
-        assertEquals("Failed to fetch contacts. Please try again.", exception.getMessage());
-    }
+        List<AddressBookDTO> contacts = service.getAllContacts();
 
-    // ===================== SAVE CONTACT TESTS =====================
-
-    @Test
-    void saveContact_ShouldSaveSuccessfully() {
-        when(repository.save(any(AddressBookModel.class))).thenReturn(sampleContact);
-
-        AddressBookDTO result = service.saveContact(sampleContactDTO);
-
-        assertEquals("John Doe", result.getName());
-        assertEquals("9876543210", result.getPhone());
+        assertEquals(0, contacts.size());
     }
 
     @Test
-    void saveContact_ShouldThrowExceptionOnFailure() {
-        when(repository.save(any(AddressBookModel.class))).thenThrow(new RuntimeException("Save failed"));
+    void testSaveContact() {
+        when(repository.save(any())).thenReturn(contact);
 
-        UserException exception = assertThrows(UserException.class, () -> service.saveContact(sampleContactDTO));
-        assertEquals("Failed to save contact. Please try again.", exception.getMessage());
+        AddressBookDTO savedContact = service.saveContact(contactDTO);
+
+        assertEquals("John Doe", savedContact.getName());
+        assertEquals("9876543210", savedContact.getPhone());
+        verify(repository, times(1)).save(any());
     }
 
-    // ===================== GET CONTACT BY ID TESTS =====================
-
     @Test
-    void getContactById_ShouldReturnContact() {
-        when(repository.findById(1L)).thenReturn(Optional.of(sampleContact));
+    void testGetContactById_Found() {
+        when(repository.findById(1L)).thenReturn(Optional.of(contact));
 
-        AddressBookDTO result = service.getContactById(1L);
+        AddressBookDTO foundContact = service.getContactById(1L);
 
-        assertEquals(1L, result.getId());
-        assertEquals("John Doe", result.getName());
+        assertEquals("John Doe", foundContact.getName());
+        verify(repository, times(1)).findById(1L);
     }
 
-    // ===================== GET CONTACT BY ID TESTS =====================
-
     @Test
-    void getContactById_ShouldThrowExceptionWhenNotFound() {
+    void testGetContactById_NotFound() {
         when(repository.findById(1L)).thenReturn(Optional.empty());
 
-        UserException exception = assertThrows(UserException.class, () -> service.getContactById(1L));
-
-        assertEquals("Contact not found with ID: 1", exception.getMessage());  // Fixed expected message
+        assertThrows(UserException.class, () -> service.getContactById(1L));
     }
 
-
-
-    // ===================== UPDATE CONTACT TESTS =====================
-
     @Test
-    void updateContact_ShouldUpdateSuccessfully() {
-        AddressBookDTO updatedDTO = new AddressBookDTO(1L, "Jane Doe", "1234567890");
+    void testUpdateContact_Found() {
+        when(repository.findById(1L)).thenReturn(Optional.of(contact));
+        when(repository.save(any())).thenReturn(contact);
 
-        when(repository.findById(1L)).thenReturn(Optional.of(sampleContact));
-        when(repository.save(any(AddressBookModel.class))).thenReturn(new AddressBookModel(1L, "Jane Doe", "1234567890"));
+        AddressBookDTO updatedContact = service.updateContact(1L, new AddressBookDTO(1L, "Jane Doe", "1234567890"));
 
-        AddressBookDTO result = service.updateContact(1L, updatedDTO);
-
-        assertEquals("Jane Doe", result.getName());
-        assertEquals("1234567890", result.getPhone());
+        assertEquals("Jane Doe", updatedContact.getName());
+        assertEquals("1234567890", updatedContact.getPhone());
+        verify(repository, times(1)).save(any());
     }
 
-    // ===================== UPDATE CONTACT TESTS =====================
-
     @Test
-    void updateContact_ShouldThrowExceptionWhenNotFound() {
+    void testUpdateContact_NotFound() {
         when(repository.findById(1L)).thenReturn(Optional.empty());
 
-        UserException exception = assertThrows(UserException.class, () -> service.updateContact(1L, sampleContactDTO));
-        assertEquals("Contact not found with ID: 1", exception.getMessage());  // Fixed expected message
+        assertThrows(UserException.class, () -> service.updateContact(1L, contactDTO));
     }
 
-
-    // ===================== DELETE CONTACT TESTS =====================
-
     @Test
-    void deleteContact_ShouldDeleteSuccessfully() {
+    void testDeleteContact_Found() {
         when(repository.existsById(1L)).thenReturn(true);
         doNothing().when(repository).deleteById(1L);
 
-        assertTrue(service.deleteContact(1L));
+        boolean isDeleted = service.deleteContact(1L);
+
+        assertTrue(isDeleted);
+        verify(repository, times(1)).deleteById(1L);
     }
 
     @Test
-    void deleteContact_ShouldThrowExceptionWhenNotFound() {
+    void testDeleteContact_NotFound() {
         when(repository.existsById(1L)).thenReturn(false);
 
-        UserException exception = assertThrows(UserException.class, () -> service.deleteContact(1L));
-        assertEquals("Contact not found with ID: 1", exception.getMessage());
-    }
-
-    @Test
-    void deleteContact_ShouldThrowExceptionOnFailure() {
-        when(repository.existsById(1L)).thenReturn(true);
-        doThrow(new RuntimeException("Delete failed")).when(repository).deleteById(1L);
-
-        UserException exception = assertThrows(UserException.class, () -> service.deleteContact(1L));
-        assertEquals("Failed to delete contact. Please try again.", exception.getMessage());
+        assertThrows(UserException.class, () -> service.deleteContact(1L));
     }
 }

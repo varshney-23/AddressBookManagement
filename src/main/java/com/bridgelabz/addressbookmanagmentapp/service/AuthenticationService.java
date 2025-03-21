@@ -69,6 +69,12 @@ public class AuthenticationService implements IAuthenticationService {
                 log.info("Login successful for user: {}", user.get().getEmail());
 
                 String token = tokenUtil.createToken(user.get().getUserId());
+
+                // Verify token before sending response
+                if (!tokenUtil.validateToken(token)) {
+                    throw new UserException("Session expired! Please log in again.");
+                }
+
                 emailSenderService.sendEmail(user.get().getEmail(), "Logged in Successfully!",
                         "Hi " + user.get().getFirstName() + ",\nYou have successfully logged in!\nYour token: " + token);
 
@@ -84,6 +90,7 @@ public class AuthenticationService implements IAuthenticationService {
             throw new UserException("Sorry! Email or Password is incorrect!");
         }
     }
+
 
     @Override
     public String forgotPassword(String email, String newPassword) {
